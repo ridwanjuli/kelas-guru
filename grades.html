@@ -672,9 +672,19 @@
                 const siswaId = nilai.siswa_id || '';
                 const tugasId = nilai.tugas_id || '';
                 const nilaiAngka = nilai.nilai || 0;
-                const keterangan = nilai.keterangan || '';
-                const status = nilai.status || 'Belum Dikoreksi';
-                const tanggal = nilai.tanggal || nilai.created_at || new Date().toISOString();
+                const komentar = nilai.komentar || '';
+                
+                // Infer status if it's not present
+                let status = nilai.status;
+                if (!status) {
+                    if (nilaiAngka === undefined || nilaiAngka === null || nilaiAngka === '' || nilaiAngka === 0) {
+                        status = 'Belum Dikoreksi';
+                    } else {
+                        status = 'Dikoreksi';
+                    }
+                }
+                
+                const tanggal = nilai.tanggal_penilaian || nilai.created_at || new Date().toISOString();
                 
                 // Find student and assignment information
                 const siswa = students.find(s => (s.id === siswaId || s.siswa_id === siswaId));
@@ -875,7 +885,7 @@
             const siswaId = nilai.siswa_id || '';
             const tugasId = nilai.tugas_id || '';
             const nilaiAngka = nilai.nilai || 0;
-            const keterangan = nilai.keterangan || '';
+            const komentar = nilai.komentar || '';
             const status = nilai.status || 'Belum Dikoreksi';
             
             document.getElementById('modal-title').textContent = 'Edit Nilai';
@@ -883,7 +893,7 @@
             document.getElementById('siswa').value = siswaId;
             document.getElementById('tugas').value = tugasId;
             document.getElementById('nilai').value = nilaiAngka;
-            document.getElementById('keterangan').value = keterangan;
+            document.getElementById('keterangan').value = komentar;
             document.getElementById('status').value = status;
             
             document.getElementById('grade-modal').classList.remove('hidden');
@@ -964,9 +974,9 @@
                 siswa_id: document.getElementById('siswa').value,
                 tugas_id: document.getElementById('tugas').value,
                 nilai: document.getElementById('nilai').value,
-                keterangan: document.getElementById('keterangan').value,
+                komentar: document.getElementById('keterangan').value,
                 status: document.getElementById('status').value,
-                tanggal: new Date().toISOString()
+                tanggal_penilaian: new Date().toISOString()
             };
             
             // For edit operations, include ID field
@@ -1191,9 +1201,9 @@
                 const siswaId = nilai.siswa_id || '';
                 const tugasId = nilai.tugas_id || '';
                 const nilaiAngka = nilai.nilai || 0;
-                const keterangan = nilai.keterangan || '';
+                const komentar = nilai.komentar || '';
                 const status = nilai.status || 'Belum Dikoreksi';
-                const tanggal = nilai.tanggal || nilai.created_at || new Date().toISOString();
+                const tanggal = nilai.tanggal_penilaian || nilai.created_at || new Date().toISOString();
                 
                 // Find student and assignment information
                 const siswa = students.find(s => (s.id === siswaId || s.siswa_id === siswaId));
@@ -1221,7 +1231,7 @@
                     'Nilai': nilaiAngka,
                     'Status': status,
                     'Tanggal': formattedDate,
-                    'Keterangan': keterangan
+                    'Komentar': komentar
                 };
             });
             
@@ -1236,7 +1246,7 @@
                 { wch: 8 },  // Nilai
                 { wch: 18 }, // Status
                 { wch: 15 }, // Tanggal
-                { wch: 30 }, // Keterangan
+                { wch: 30 }, // Komentar
             ];
             worksheet['!cols'] = colWidths;
             
@@ -1505,9 +1515,9 @@
                     const siswaId = nilai.siswa_id || '';
                     const tugasId = nilai.tugas_id || '';
                     const nilaiAngka = nilai.nilai || 0;
-                    const keterangan = nilai.keterangan || '';
+                    const komentar = nilai.komentar || '';
                     const status = nilai.status || 'Belum Dikoreksi';
-                    const tanggal = nilai.tanggal || nilai.created_at || new Date().toISOString();
+                    const tanggal = nilai.tanggal_penilaian || nilai.created_at || new Date().toISOString();
                     
                     // Find student and assignment information
                     const siswa = students.find(s => (s.id === siswaId || s.siswa_id === siswaId));
@@ -1536,7 +1546,7 @@
                             <td style="text-align: center; font-weight: bold;">${nilaiAngka}</td>
                             <td>${status}</td>
                             <td>${formattedDate}</td>
-                            <td>${keterangan}</td>
+                            <td>${komentar}</td>
                         </tr>
                     `);
                 });

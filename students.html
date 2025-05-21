@@ -230,6 +230,14 @@
                     <input id="no-telp" type="tel" class="shadcn-input" placeholder="Nomor telepon orang tua/wali">
                 </div>
                 
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                        Password
+                    </label>
+                    <input id="password" type="text" class="shadcn-input" placeholder="Password untuk login siswa">
+                    <p class="text-xs text-gray-500 mt-1">Jika kosong, NIS akan digunakan sebagai password default.</p>
+                </div>
+                
                 <div class="flex justify-end mt-6">
                     <button type="button" id="cancel-btn" class="shadcn-btn shadcn-btn-outline mr-2">
                         Batal
@@ -665,13 +673,14 @@
             }
             
             // Handle different property naming conventions
-                const nama = student.nama || student.nama_siswa || '';
-                const nis = student.nis || student.nomor_induk || '';
-                const kelasId = student.kelas || student.kelas_id || '';
-                const jenisKelamin = student.jenisKelamin || student.jenis_kelamin || '';
-                const tanggalLahir = student.tanggalLahir || student.tanggal_lahir || '';
-                const alamat = student.alamat || '';
-                const noTelp = student.noTelp || student.no_telp || student.telepon || '';
+            const nama = student.nama || student.nama_siswa || '';
+            const nis = student.nis || student.nomor_induk || '';
+            const kelasId = student.kelas || student.kelas_id || '';
+            const jenisKelamin = student.jenisKelamin || student.jenis_kelamin || '';
+            const tanggalLahir = student.tanggalLahir || student.tanggal_lahir || '';
+            const alamat = student.alamat || '';
+            const noTelp = student.noTelp || student.no_telp || student.telepon || '';
+            const password = student.password || '';
             
             document.getElementById('modal-title').textContent = 'Edit Siswa';
             document.getElementById('student-id').value = id;
@@ -710,6 +719,7 @@
             document.getElementById('tanggal-lahir').value = formatDateForInput(tanggalLahir);
             document.getElementById('alamat').value = alamat;
             document.getElementById('no-telp').value = noTelp;
+            document.getElementById('password').value = password;
             
             document.getElementById('student-modal').classList.remove('hidden');
         }
@@ -808,7 +818,8 @@
                 jenisKelamin: gender,
                 tanggalLahir: document.getElementById('tanggal-lahir').value,
                 alamat: document.getElementById('alamat').value,
-                noTelp: document.getElementById('no-telp').value
+                noTelp: document.getElementById('no-telp').value,
+                password: document.getElementById('password').value
             };
             
             // Add alternate field names for compatibility

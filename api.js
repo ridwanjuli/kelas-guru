@@ -2,7 +2,7 @@
 // Following CORS bypass rules
 
 // Replace with your deployed Google Apps Script web app URL
-const API_URL = 'https://script.google.com/macros/s/AKfycbz1sTWiXNl5FLKZog9utSAZ5qq-H98CbnMZ6H6fJKga6ZhmCuNMFuupv-I4-azoIBs2wg/exec';
+const API_URL = 'https://script.google.com/macros/s/DEPLOY-URL/exec';
 
 // Generic API function for making requests to the GAS backend
 async function callApi(action, params = {}) {
